@@ -1,0 +1,42 @@
+ESPN_LIVE = "http://espn.go.com/watchespn/feeds/startup?action=live&channel=buzzerbeater,espn1,espn2,espn3,espnu,goalline"
+ESPN_BASE = "http://espn.go.com/watchespn/player/_/id/"
+
+####################################################################################################
+def NormalizeURL(url):
+
+    return url
+
+####################################################################################################
+def MetadataObjectForURL(url):
+
+    data = XML.ElementFromURL(ESPN_LIVE)
+    event = data.xpath('//events/event[@id="' + url.split("/")[-1] + '"]')
+
+    if len(event) == 0:
+        return None
+
+    return VideoClipObject(
+        title = event.xpath('./guid')[0].text.split('/')[0] + " - " + event.xpath('./league')[0].text,
+        summary = event.xpath('./name')[0].text,
+        thumb = Resource.ContentsOfURLWithFallback(url=event.xpath('./thumbnail/large')[0].text, fallback=ICON)
+    )
+
+####################################################################################################
+def MediaObjectsForURL(url):
+
+    return [
+        MediaObject(
+            parts = [PartObject(key=WebVideoURL(url))]
+        )
+    ]
+
+####################################################################################################
+def TestURLs():
+
+    test_urls = []
+    for item in XML.ElementFromURL(ESPN_LIVE).xpath('//events/event'):
+        test_urls.append(ESPN_BASE + item.get('id'))
+        if len(test_urls) > 3:
+            break
+
+    return test_urls

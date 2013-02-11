@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<site site="espn\.go\.com/watchespn/player/_/id/.*"
+	plugin="espn\.go\.com/watchespn/player\.swf"
+	windowWidth="1280"
+	windowHeight="768"
+	initialState="init"
+	version="2.0">
+
+	<crop x="0" y="0" width="0" height="0" />
+
+	<!-- INIT -->
+	<state name="init">
+		<event>
+			<condition>
+                <frameLoaded />
+            </condition>
+			<action>
+                <pause time="3000" />
+                <run script="var o = document.getElementsByTagName('object')[0]; var width = screen.availWidth; height = screen.availHeight;" />
+				<run script="var flashvars = o.querySelector('[name=flashvars]').getAttribute('value').replace(/playerSize=[0-9]*x[0-9]*/, 'playerSize=' + width + 'x' + height);" />
+				<run script="o.querySelector('[name=flashvars]').setAttribute('value', flashvars)" />
+				<run script="o.style.display = 'none'; o.offsetHeight; o.style.display = 'block';" />
+				<run script="o.style.position = 'absolute'; o.style.top = 0; o.style.left = 0; o.width = width; o.height = height;" />
+			</action>
+		</event>
+	</state>
+</site>
