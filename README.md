@@ -2,8 +2,8 @@ ESPN
 ====
 
 ToDo:
-1.) Login functionality
-2.) Add Replay
+1. Login functionality
+2. Add Replay
 
 Login Steps:
 1. Download and/or open Safari. No other browser will work with this step
