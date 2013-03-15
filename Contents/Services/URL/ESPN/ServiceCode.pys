@@ -13,7 +13,9 @@ def MetadataObjectForURL(url):
     event = data.xpath('//events/event[@id="' + url.split("/")[-1] + '"]')
 
     if len(event) == 0:
-        return None
+        return VideoClipObject()
+    else:
+        event = event[0]
 
     return VideoClipObject(
         title = event.xpath('./guid')[0].text.split('/')[0] + " - " + event.xpath('./league')[0].text,
@@ -26,17 +28,8 @@ def MediaObjectsForURL(url):
 
     return [
         MediaObject(
-            parts = [PartObject(key=WebVideoURL(url))]
+            parts = [PartObject(key = WebVideoURL(url))],
+            audio_channels = 2,
+            protocol = Protocol.WebKit
         )
     ]
-
-####################################################################################################
-def TestURLs():
-
-    test_urls = []
-    for item in XML.ElementFromURL(ESPN_LIVE).xpath('//events/event'):
-        test_urls.append(ESPN_BASE + item.get('id'))
-        if len(test_urls) > 3:
-            break
-
-    return test_urls

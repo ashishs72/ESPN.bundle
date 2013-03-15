@@ -11,10 +11,6 @@
       <array>
         <string>http://espn\.go\.com/watchespn/player/_/id/</string>
       </array>
-      <key>TestURLs</key>
-      <array>
-        <string>http://espn.go.com/watchespn/player/_/id/815476</string>
-      </array>
     </dict>
   </dict>
 </dict>

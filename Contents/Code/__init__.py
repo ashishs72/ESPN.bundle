@@ -29,6 +29,7 @@ def MainMenu():
 	return oc
 
 ####################################################################################################
+@route('/video/espn/getevents')
 def GetEvents(title):
 
 	oc = ObjectContainer()
