@@ -29,7 +29,6 @@ def MediaObjectsForURL(url):
     return [
         MediaObject(
             parts = [PartObject(key = WebVideoURL(url))],
-            audio_channels = 2,
-            protocol = Protocol.WebKit
+            audio_channels = 2
         )
     ]
