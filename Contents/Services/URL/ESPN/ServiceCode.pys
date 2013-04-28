@@ -1,5 +1,6 @@
 ESPN_LIVE = "http://espn.go.com/watchespn/feeds/startup?action=live&channel=buzzerbeater,espn1,espn2,espn3,espnu,goalline"
 ESPN_BASE = "http://espn.go.com/watchespn/player/_/id/"
+ICON = 'icon-default.png'
 
 ####################################################################################################
 def NormalizeURL(url):
