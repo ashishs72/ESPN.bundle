@@ -2,8 +2,7 @@ TITLE = 'ESPN'
 ART = 'art-default.jpeg'
 ICON = 'icon-default.png'
 ESPN_LIVE = "http://espn.go.com/watchespn/feeds/startup?action=live&channel=%s"
-ESPN_PLAYER = "http://espn.go.com/watchespn/player/_/id/"
-AUTH = 'http://a.espncdn.com/combiner/c?v=201110050400&js=/espn/espn360/watchespn/format/design11/shell/js/auth'
+ESPN_PLAYER = "http://espn.go.com/watchespn/player/_/id/%s?hd=%s"
 
 ####################################################################################################
 def Start():
@@ -34,12 +33,16 @@ def MainMenu():
 def GetEvents(title):
 
     oc = ObjectContainer()
+    hd = 0
+
+    if Client.Platform in ['Windows', 'MacOSX', 'Linux']:
+        hd = 1
 
     for item in XML.ElementFromURL(ESPN_LIVE % (title), cacheTime=300).xpath('//events/event'):
         item_title = item.xpath('./name')[0].text
         league = item.xpath('./league')[0].text
         oc.add(VideoClipObject(
-            url = ESPN_PLAYER + item.get('id'),
+            url = ESPN_PLAYER % (item.get('id'), hd),
             title = (league + " - " + item_title) if league != "" else (item_title),
             summary = item_title,
             thumb = Resource.ContentsOfURLWithFallback(url=item.xpath('./thumbnail/large')[0].text, fallback=ICON)))

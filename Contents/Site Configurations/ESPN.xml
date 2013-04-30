@@ -12,7 +12,10 @@
 	<state name="init">
 		<event>
 			<condition>
-                <frameLoaded />
+                <and>
+                	<frameLoaded />
+                	<javascript script="hd = parseInt(location.search.split('=')[1]) ? 1 : 0" matches="1" />
+            	</and>
             </condition>
 			<action>
                 <pause time="3000" />
